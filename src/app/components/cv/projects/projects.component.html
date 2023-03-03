@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-block">
+        <h2>{{ projects.title }}</h2>
+        <div class="col-md-6" *ngFor="let detail of projects.detail">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h5 class="h5 card-title">
+                        <u>
+                            <a href="{{ detail.url }}" target="_blank" title="">
+                                {{ detail.name }}
+                            </a>
+                        </u>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <a href="{{ detail.url }}" target="_blank" title="">
+                        <img src="{{ detail.imagePath }}" class="img-fluid rounded-start" alt="">
+                    </a>
+                </div>
+                <div class="card-footer text-muted">
+                    <img src="{{ tecnology }}" class="img-tech" *ngFor="let tecnology of detail.technologies">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

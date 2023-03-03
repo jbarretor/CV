@@ -9,6 +9,7 @@ import { Education } from '../interfaces/education';
 import { Experience } from '../interfaces/experience';
 import { Header } from '../interfaces/header';
 import { Language } from '../interfaces/language';
+import { Projects } from '../interfaces/projects';
 import { Skills } from '../interfaces/skills';
 import { SocialNetwork } from '../interfaces/social-network';
 
@@ -97,6 +98,35 @@ export class PortafolioService {
     return deleteDoc(portRef);
   }
   //#endregion Experience
+
+  //#region Projects
+  createProjects(projects: Projects) {
+    const portRef = collection(this.firestore, 'Projects')
+    let save = {
+      key: projects.key,
+      title: projects.title,
+      detail: projects.detail ? projects.detail : null
+    }
+    return addDoc(portRef, projects);
+  }
+
+  readProjects(): Observable<Projects[]> {
+    const portRef = collection(this.firestore, 'Projects')
+
+    return collectionData(portRef, { idField: 'id' }) as Observable<Projects[]>;
+  }
+
+  updateProjects(projects: Projects) {
+    const portRef = doc(this.firestore, 'Projects/' + projects.id)
+    return setDoc(portRef, projects)
+  }
+
+  deleteProjects(projects: Projects) {
+    const portRef = doc(this.firestore, 'Projects/' + projects.id)
+
+    return deleteDoc(portRef);
+  }
+  //#endregion Projects
 
   //#region Education
   createEducation(education: Education) {
