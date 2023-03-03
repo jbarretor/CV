@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-block">
+        <h2>{{ skills.title }}</h2>
+        <div class="slider">
+            <div class="lang slide-track">
+                <div class='slide' *ngFor="let detail of skills.detail">
+                    <img class='img-thumbnail' src='{{ detail.fileSvg }}'>
+                </div>
+                <div class='slide' *ngFor="let detail of skills.detail">
+                    <img class='img-thumbnail' src='{{ detail.fileSvg }}'>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

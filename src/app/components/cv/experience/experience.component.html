@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="card-block">
+        <h2>{{ experience.title }}</h2>
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="row">
+                <div class="col-2">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"
+                            style="width: 50px; height: 50px;"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                </div>
+                <div class="col-8">
+                    <div class="carousel-inner">
+                        <div class="carousel-item {{ i==0?'active':'' }}" *ngFor="let detail of experience.detail; index as i" >
+                            <div class="card mb-3">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <a href="{{ detail.url }}" target="_blank" title="">
+                                            <img src="{{ detail.imagePath }}" class="img-fluid rounded-start" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="h5 card-title">{{ detail.position }} -
+                                                <u>
+                                                    <a href="{{ detail.url }}" target="_blank" title="">
+                                                        {{detail.company }}
+                                                    </a>
+                                                </u>
+                                            </h5>
+                                            <small class="date">{{ detail.period }}</small>
+                                            <p></p>
+                                            <li *ngFor="let desc of detail.description">{{ desc }}</li>
+                                        </div>
+                                        <u>
+                                            <b>
+                                                <a class="card-more">Read more</a>
+                                            </b>
+                                        </u>
+                                        <u>
+                                            <b>
+                                                <a class="card-less">Read less</a>
+                                            </b>
+                                        </u>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"
+                            style="width: 50px; height: 50px;"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

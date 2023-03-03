@@ -1,0 +1,29 @@
+<main class="content-wrapper">
+    <app-header [lang]=lang [socialNetwork]="socialNetwork"></app-header>
+    <div class="langBtn">
+        <img class="round-icon fa-icon trans" id="es" src="./assets/svg/langs/es.svg" (click)="changeLang('es')">
+        <img class="round-icon fa-icon trans" id="en" src="./assets/svg/langs/gb.svg" (click)="changeLang('en')">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <app-about-me [lang]=lang></app-about-me>
+                <app-experience [lang]=lang></app-experience>
+                <!-- PROJECT CARD -->
+                <app-education [lang]=lang></app-education>
+                <app-skills [lang]=lang></app-skills>
+                <app-language [lang]=lang></app-language>
+                <app-social [socialNetwork]="socialNetwork"></app-social>
+                <app-contact [lang]=lang></app-contact>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer-container white-text-container text-center">
+    <div class="container">
+        <a class='fa-icon fa-icon-2x' href='{{ network.url }}' target='_blank' *ngFor="let network of socialNetwork.detail">
+            <i class='{{ network.icon }}'></i>
+        </a>
+    </div>
+</footer>

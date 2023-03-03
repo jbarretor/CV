@@ -1,0 +1,74 @@
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
+
+/* Read more */
+.carousel-inner {
+    background: #ced6d1;
+}
+
+.carousel-item .card {
+    border-width: 0px;
+}
+
+.carousel-item .card .row .col-md-4 {
+    background: #ced6d1;
+}
+
+.carousel-item .card .row .col-md-8 {
+    background: #ced6d1;
+}
+
+.card-body {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: #ced6d1;
+
+}
+
+.col-md-8.active .card-more {
+    display: none;
+}
+
+.col-md-8.active .card-less {
+    display: contents;
+}
+
+.col-md-8.active .card-body {
+    height: auto;
+}
+
+.col-md-8 .card-more {
+    display: contents;
+}
+
+.col-md-8 .card-less {
+    display: none;
+}
+
+.carousel-item .card .row .col-md-8 .card-body::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(transparent, #ced6d1)
+}
+
+.col-md-8.active .card-body::before {
+    display: none;
+}
+
+.card-more {
+    position: relative;
+    padding: 10px 15px;
+    background: #eeeeee;
+    margin-top: 15px;
+    display: inline-block;
+    ;
+}
+
+// /* END Read more */
