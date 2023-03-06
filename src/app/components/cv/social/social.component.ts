@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SocialNetwork } from 'src/app/interfaces/social-network';
-import { PortafolioService } from 'src/app/services/portafolio.service';
 
 @Component({
   selector: 'app-social',
@@ -12,7 +11,7 @@ export class SocialComponent implements OnInit {
   @Input()
   socialNetwork: SocialNetwork
 
-  constructor(private portafolioService: PortafolioService) {
+  constructor() {
     this.socialNetwork = {
       id: '',
       key: '',

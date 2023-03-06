@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-block">
-        <h2>{{ experience.title }}</h2>
+    <div class="card-body">
+        <h2 class="card-title">{{ experience.title }}</h2>
         <div id="carouselExampleIndicators" class="carousel slide">
             <div class="row">
                 <div class="col-2">
@@ -13,7 +13,8 @@
                 </div>
                 <div class="col-8">
                     <div class="carousel-inner">
-                        <div class="carousel-item {{ i==0?'active':'' }}" *ngFor="let detail of experience.detail; index as i" >
+                        <div class="carousel-item {{ i==0?'active':'' }}"
+                            *ngFor="let detail of experience.detail; index as i">
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4">
@@ -36,12 +37,7 @@
                                         </div>
                                         <u>
                                             <b>
-                                                <a class="card-more">Read more</a>
-                                            </b>
-                                        </u>
-                                        <u>
-                                            <b>
-                                                <a class="card-less">Read less</a>
+                                                <a class="card-more" (click)="openModal(detail.index)">Read more</a>
                                             </b>
                                         </u>
                                     </div>
@@ -62,3 +58,45 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ experienceDetail.position }} -
+                    <u>
+                        <a href="{{ experienceDetail.url }}" target="_blank" title="">
+                            {{experienceDetail.company }}
+                        </a>
+                    </u>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="{{ experienceDetail.url }}" target="_blank" title="">
+                            <img src="{{ experienceDetail.imagePath }}" class="img-fluid rounded-start" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <small class="date">{{ experienceDetail.period }}</small>
+                        <p></p>
+                        <li *ngFor="let desc of experienceDetail.description">{{ desc }}</li>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary position-relative" (click)="last()">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button type="button" class="btn btn-secondary position-relative" (click)="next()">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal -->

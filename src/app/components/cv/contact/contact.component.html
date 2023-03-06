@@ -1,26 +1,28 @@
 <div class="card">
-    <div class="card-block">
-        <h2>{{ contact.title }}</h2>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()" id="contactForm">
-            <div class="form-group">
-                <input type="text" class="form-control" id="full-name" name="entry.192254487"
-                    placeholder="{{ contact.fullnamePlaceHolder }}" required="true" key="fullnamePlaceHolder"
-                    formControlName="name">
-            </div>
-            <div class="form-group">
-                <input type="email" class="form-control" id="email" name="entry.1584335658" required="true"
-                    placeholder="{{ contact.emailPlaceHolder }}" formControlName="email">
-            </div>
-            <div class="form-group">
-                <input type="phone" class="form-control" id="phone" name="entry.324243063"
-                    placeholder="{{ contact.phonePlaceHolder }}" formControlName="phone">
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" rows="5" name="entry.548951854" required="true"
-                    placeholder="{{ contact.messagePlaceHolder }}" formControlName="message"></textarea>
-            </div>
-            <button type="submit" class="btn btn-default">{{ contact.submitBtnContact }}</button>
-        </form>
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;">{{ contact.submitContact }}</iframe>
+    <div class="card-body">
+        <h2 class="card-title">{{ contact.title }}</h2>
+        <div class="row">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" id="contactForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="full-name" name="entry.192254487"
+                        placeholder="{{ contact.fullnamePlaceHolder }}" required="true" key="fullnamePlaceHolder"
+                        formControlName="name">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" name="entry.1584335658" required="true"
+                        placeholder="{{ contact.emailPlaceHolder }}" formControlName="email">
+                </div>
+                <div class="form-group">
+                    <input type="phone" class="form-control" id="phone" name="entry.324243063"
+                        placeholder="{{ contact.phonePlaceHolder }}" formControlName="phone">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" name="entry.548951854" required="true"
+                        placeholder="{{ contact.messagePlaceHolder }}" formControlName="message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">{{ contact.submitBtnContact }}</button>
+            </form>
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;">{{ contact.submitContact }}</iframe>
+        </div>
     </div>
 </div>

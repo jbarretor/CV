@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ParticlesConfig } from './particles-config';
 
 declare let particlesJS: any;
 @Component({
@@ -7,11 +8,13 @@ declare let particlesJS: any;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Portafolio';
+  title = 'CV-Angular';
 
-  constructor() {}
+  public ngOnInit(): void {
+    this.invokeParticles();
+  }
 
-  ngOnInit(): void {
-    particlesJS('particles-js', null, null);
+  public invokeParticles(): void {
+    particlesJS('particles-js', ParticlesConfig, function() {});
   }
 }

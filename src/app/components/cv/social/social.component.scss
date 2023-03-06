@@ -1,0 +1,31 @@
+.fa-icon {
+    color: black;
+    font-size: 1rem;
+    display: inline-block;
+    padding: 0.62rem;
+}
+
+.social-round-icon {
+    border: 0.06rem solid #838383;
+    border-radius: 3.12rem;
+    -webkit-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    transition: all .2s linear
+}
+
+.social-round-icon:hover {
+    background-color: #555;
+    color: #ffffffd2;
+    border-color: #555
+}
+
+.social-round-icon.white-round-icon {
+    border: 0.06rem solid #ffffffd2;
+    color: #ffffffd2
+}
+
+.social-round-icon.white-round-icon:hover {
+    background-color: #ffffffd2;
+    color: #555;
+    border-color: #ffffffd2
+}

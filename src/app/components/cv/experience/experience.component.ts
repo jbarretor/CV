@@ -1,6 +1,9 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Experience } from 'src/app/interfaces/experience';
+import { ExperienceDetail } from 'src/app/interfaces/experience-detail';
 import { PortafolioService } from 'src/app/services/portafolio.service';
+
+declare var window: any
 
 @Component({
   selector: 'app-experience',
@@ -13,8 +16,10 @@ export class ExperienceComponent implements OnInit, OnChanges {
   lang: string = ''
   experienceAll: Array<Experience>
   experience: Experience
+  experienceDetail: ExperienceDetail
   readMore: string
   readLess: string
+  formModal: any
 
   constructor(private portafolioService: PortafolioService) {
     this.experienceAll = []
@@ -22,17 +27,18 @@ export class ExperienceComponent implements OnInit, OnChanges {
       id: '',
       key: '',
       title: '',
-      detail: [{
-        index: 0,
-        company: '',
-        url: '',
-        imagePath: '',
-        position: '',
-        period: '',
-        startDate: '',
-        endDate: '',
-        description: []
-      }]
+      detail: []
+    }
+    this.experienceDetail = {
+      index: 0,
+      company: '',
+      url: '',
+      imagePath: '',
+      position: '',
+      period: '',
+      startDate: '',
+      endDate: '',
+      description: []
     }
     this.readMore = ''
     this.readLess = ''
@@ -40,13 +46,17 @@ export class ExperienceComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.loadData()
+
+    this.formModal = new window.bootstrap.Modal(
+      document.getElementById('exampleModal')
+    )
   }
 
   ngOnChanges(): void {
     this.loadData()
   }
 
-  loadData(){
+  loadData() {
     if (this.experienceAll.length > 0) {
       let info = this.experienceAll.find(x => x.key == this.lang)
       if (info) {
@@ -75,5 +85,53 @@ export class ExperienceComponent implements OnInit, OnChanges {
         }
       })
     }
+  }
+
+  openModal(index: number) {
+    this.experienceDetail = this.experience.detail.find(x => x.index == index) as ExperienceDetail
+
+    this.formModal.show()
+  }
+
+  closeModal() {
+    this.experienceDetail = {
+      index: 0,
+      company: '',
+      url: '',
+      imagePath: '',
+      position: '',
+      period: '',
+      startDate: '',
+      endDate: '',
+      description: []
+    }
+
+    this.formModal.hide()
+  }
+
+  next() {
+    let pos = this.experience.detail.indexOf(this.experienceDetail)
+    let length = this.experience.detail.length
+
+    if (pos == length - 1) {
+      pos = 0
+    } else {
+      pos = pos + 1
+    }
+
+    this.experienceDetail = this.experience.detail[pos]
+  }
+
+  last() {
+    let pos = this.experience.detail.indexOf(this.experienceDetail)
+    let length = this.experience.detail.length
+
+    if (pos == 0) {
+      pos = length - 1
+    } else {
+      pos = pos - 1
+    }
+
+    this.experienceDetail = this.experience.detail[pos]
   }
 }
