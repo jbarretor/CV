@@ -8,7 +8,15 @@ declare let particlesJS: any;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'CV-Angular';
+  
+  year: string
+
+  constructor (){
+    let date: Date = new Date()
+    this.year = date.getFullYear().toString()
+  }
+
+
 
   public ngOnInit(): void {
     this.invokeParticles();
