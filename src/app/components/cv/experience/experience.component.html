@@ -33,7 +33,7 @@
                                             </h5>
                                             <small class="date">{{ detail.period }}</small>
                                             <p></p>
-                                            <li *ngFor="let desc of detail.description">{{ desc }}</li>
+                                            <li class="text-justify" *ngFor="let desc of detail.description">{{ desc }}</li>
                                         </div>
                                         <u>
                                             <b>
@@ -84,7 +84,7 @@
                     <div class="col-md-8">
                         <small class="date">{{ experienceDetail.period }}</small>
                         <p></p>
-                        <li *ngFor="let desc of experienceDetail.description">{{ desc }}</li>
+                        <li class="text-justify" *ngFor="let desc of experienceDetail.description">{{ desc }}</li>
                     </div>
                 </div>
             </div>
