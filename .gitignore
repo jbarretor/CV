@@ -66,3 +66,5 @@ tsconfig.spec.json
 /src/app/app.module.ts
 /src/app/services/google-form.service.ts
 /src/app/services/auth.service.ts
+
+publish.bat
