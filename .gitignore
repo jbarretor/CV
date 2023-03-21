@@ -62,8 +62,7 @@ tsconfig.spec.json
 
 /src/environments
 /src/app/components/administrator
-/src/app/app-routing.module.ts
-/src/app/app.module.ts
+/src/app/modules/administrator
 /src/app/services/google-form.service.ts
 /src/app/services/auth.service.ts
 
