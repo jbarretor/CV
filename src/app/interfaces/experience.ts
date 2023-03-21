@@ -1,8 +1,6 @@
+import { BaseInterface } from "./base-interface"
 import { ExperienceDetail } from "./experience-detail"
 
-export interface Experience {
-    id: string
-    key: string
-    title: string
+export interface Experience extends BaseInterface {
     detail: Array<ExperienceDetail>
 }

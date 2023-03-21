@@ -14,12 +14,10 @@ export class ExperienceComponent implements OnInit, OnChanges {
 
   @Input()
   lang: string = ''
-  experienceAll: Array<Experience>
-  experience: Experience
-  experienceDetail: ExperienceDetail
-  readMore: string
-  readLess: string
-  formModal: any
+  private experienceAll: Array<Experience>
+  private formModal: any
+  protected experience: Experience
+  protected experienceDetail: ExperienceDetail
 
   constructor(private portafolioService: PortafolioService) {
     this.experienceAll = []
@@ -40,8 +38,6 @@ export class ExperienceComponent implements OnInit, OnChanges {
       endDate: '',
       description: []
     }
-    this.readMore = ''
-    this.readLess = ''
   }
 
   ngOnInit(): void {
@@ -56,7 +52,7 @@ export class ExperienceComponent implements OnInit, OnChanges {
     this.loadData()
   }
 
-  loadData() {
+  private loadData() {
     if (this.experienceAll.length > 0) {
       let info = this.experienceAll.find(x => x.key == this.lang)
       if (info) {
@@ -87,13 +83,13 @@ export class ExperienceComponent implements OnInit, OnChanges {
     }
   }
 
-  openModal(index: number) {
+  protected openModal(index: number) {
     this.experienceDetail = this.experience.detail.find(x => x.index == index) as ExperienceDetail
 
     this.formModal.show()
   }
 
-  closeModal() {
+  protected closeModal() {
     this.experienceDetail = {
       index: 0,
       company: '',
@@ -109,7 +105,7 @@ export class ExperienceComponent implements OnInit, OnChanges {
     this.formModal.hide()
   }
 
-  next() {
+  protected next() {
     let pos = this.experience.detail.indexOf(this.experienceDetail)
     let length = this.experience.detail.length
 
@@ -122,7 +118,7 @@ export class ExperienceComponent implements OnInit, OnChanges {
     this.experienceDetail = this.experience.detail[pos]
   }
 
-  last() {
+  protected last() {
     let pos = this.experience.detail.indexOf(this.experienceDetail)
     let length = this.experience.detail.length
 

@@ -11,9 +11,8 @@ export class ProjectsComponent implements OnInit, OnChanges {
 
   @Input()
   lang: string = ''
-  
-  projectsAll: Array<Projects>
-  projects: Projects
+  private projectsAll: Array<Projects>
+  protected projects: Projects
 
   constructor(private portafolioService: PortafolioService) {
     this.projectsAll = []
@@ -33,7 +32,7 @@ export class ProjectsComponent implements OnInit, OnChanges {
     this.loadData()
   }
 
-  loadData(){
+  private loadData(){
     if (this.projectsAll.length > 0) {
       let info = this.projectsAll.find(x => x.key == this.lang)
       if (info) {

@@ -1,7 +1,6 @@
-export interface AboutMe {
-    id: string
-    key: string
-    title: string
+import { BaseInterface } from "./base-interface"
+
+export interface AboutMe extends BaseInterface {
     description: Array<string>
     image: string
 }

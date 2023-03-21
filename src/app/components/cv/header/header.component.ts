@@ -14,8 +14,8 @@ export class HeaderComponent implements OnInit, OnChanges {
   lang: string = ''
   @Input()
   socialNetwork: SocialNetwork
-  headerAll: Array<Header>
-  header: Header
+  private headerAll: Array<Header>
+  protected header: Header
   // socialNetworkSimple: SocialNetworSimple
 
   constructor(private portafolioService: PortafolioService) {
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     this.loadData()
   }
 
-  loadData() {
+  private loadData() {
     if (this.headerAll.length > 0) {
       let info = this.headerAll.find(x => x.key == this.lang)
       if (info) {

@@ -1,8 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { getDownloadURL} from '@firebase/storage';
 import { Education } from 'src/app/interfaces/education';
 import { PortafolioService } from 'src/app/services/portafolio.service';
-import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-education',
@@ -13,11 +11,10 @@ export class EducationComponent implements OnInit, OnChanges {
 
   @Input()
   lang: string = ''
-  educationAll: Array<Education>
-  education: Education
-  imageList: any
+  private educationAll: Array<Education>
+  protected education: Education
 
-  constructor(private portafolioService: PortafolioService, private storageService: StorageService) {
+  constructor(private portafolioService: PortafolioService) {
     this.educationAll = []
     this.education = {
       id: '',
@@ -35,7 +32,7 @@ export class EducationComponent implements OnInit, OnChanges {
     this.loadData()
   }
 
-  loadData(){
+  private loadData(){
     if (this.educationAll.length > 0) {
       let info = this.educationAll.find(x => x.key == this.lang)
       if (info) {

@@ -9,9 +9,9 @@ import { PortafolioService } from 'src/app/services/portafolio.service';
 })
 export class CvComponent implements OnInit {
 
-  socialNetworkAll: Array<SocialNetwork>
-  socialNetwork: SocialNetwork
-  lang: string = 'en'
+  private socialNetworkAll: Array<SocialNetwork>
+  protected socialNetwork: SocialNetwork
+  protected lang: string = 'en'
 
   constructor(private portafolioService: PortafolioService) {
     this.socialNetworkAll = []
@@ -27,12 +27,12 @@ export class CvComponent implements OnInit {
     this.loadData()
   }
 
-  changeLang(lang: string) {
+  protected changeLang(lang: string) {
     this.lang = lang
     this.loadData()
   }
 
-  loadData() {
+  private loadData() {
     if (this.socialNetworkAll.length > 0) {
       let info = this.socialNetworkAll.find(x => x.key == this.lang)
       if (info) {

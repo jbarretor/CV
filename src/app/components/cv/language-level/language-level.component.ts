@@ -11,8 +11,8 @@ export class LanguageLevelComponent implements OnInit, OnChanges {
 
   @Input()
   lang: string = ''
-  languageAll: Array<Language>
-  language: Language
+  private languageAll: Array<Language>
+  protected language: Language
 
   constructor(private portafolioService: PortafolioService) {
     this.languageAll = []
@@ -32,7 +32,7 @@ export class LanguageLevelComponent implements OnInit, OnChanges {
     this.loadData()
   }
 
-  loadData() {
+  private loadData() {
     if (this.languageAll.length > 0) {
       let info = this.languageAll.find(x => x.key == this.lang)
       if (info) {

@@ -9,7 +9,7 @@ declare let particlesJS: any;
 })
 export class AppComponent implements OnInit {
   
-  year: string
+  protected year: string
 
   constructor (){
     let date: Date = new Date()
@@ -18,11 +18,11 @@ export class AppComponent implements OnInit {
 
 
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.invokeParticles();
   }
 
-  public invokeParticles(): void {
+  private invokeParticles(): void {
     particlesJS('particles-js', ParticlesConfig, function() {});
   }
 }

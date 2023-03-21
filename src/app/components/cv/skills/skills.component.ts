@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Storage } from '@angular/fire/storage';
 import { Skills } from 'src/app/interfaces/skills';
 import { PortafolioService } from 'src/app/services/portafolio.service';
 
@@ -12,8 +11,8 @@ export class SkillsComponent implements OnInit, OnChanges {
 
   @Input()
   lang: string = ''
-  skillsAll: Array<Skills>
-  skills: Skills
+  private skillsAll: Array<Skills>
+  protected skills: Skills
 
   constructor(private portafolioService: PortafolioService) {
     this.skillsAll = []
@@ -33,7 +32,7 @@ export class SkillsComponent implements OnInit, OnChanges {
     this.loadData()
   }
 
-  loadData(){
+  private loadData(){
     if (this.skillsAll.length > 0) {
       let info = this.skillsAll.find(x => x.key == this.lang)
       if (info) {

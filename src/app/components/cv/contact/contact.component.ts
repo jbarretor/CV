@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Contact } from 'src/app/interfaces/contact';
 import { ContactForm } from 'src/app/interfaces/contact-form';
-import { GoogleFormService } from 'src/app/services/google-form.service';
 import { PortafolioService } from 'src/app/services/portafolio.service';
 
 @Component({
@@ -15,19 +13,10 @@ export class ContactComponent implements OnInit, OnChanges {
   
   @Input()
   lang: string = ''
-  year: string
-  month: string
-  day: string
-  contact: Contact
-  form: FormGroup
+  protected contact: Contact
+  protected form: FormGroup
 
-  constructor(private portafolioService: PortafolioService, private googleFormService: GoogleFormService) {
-    let date: Date = new Date()
-
-    this.year = date.getFullYear().toString()
-    this.month = (date.getMonth() + 1).toString()
-    this.day = date.getDate().toString()
-
+  constructor(private portafolioService: PortafolioService) {
     this.contact = {
       id: '',
       key: '',
@@ -66,15 +55,16 @@ export class ContactComponent implements OnInit, OnChanges {
     });
   }
 
-  async onSubmit() {
+  protected async onSubmit() {
+    let date: Date = new Date()
     let contactForm: ContactForm = {
-      date: this.day + '/' + this.month + '/' + this.year,
+      date: date.toString(),
       name: this.form.value.name,
       email: this.form.value.email,
       phone: this.form.value.phone,
       message: this.form.value.message
     }
     this.portafolioService.createContactForm(contactForm)
-    this.googleFormService.SendForm(this.form)
+    // this.googleFormService.SendForm(this.form)
   }
 }

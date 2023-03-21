@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { AboutMe } from 'src/app/interfaces/about-me';
 import { PortafolioService } from 'src/app/services/portafolio.service';
 
@@ -13,9 +12,8 @@ export class AboutMeComponent implements OnInit, OnChanges {
 
   @Input()
   lang: string = ''
-  aboutMeAll: Array<AboutMe>
-  aboutMe: AboutMe
-  form: FormGroup
+  private aboutMeAll: Array<AboutMe>
+  protected aboutMe: AboutMe
 
   constructor(private portafolioService: PortafolioService) {
     this.aboutMeAll = []
@@ -26,11 +24,6 @@ export class AboutMeComponent implements OnInit, OnChanges {
       description: [],
       image: ''
     };
-    this.form = new FormGroup({
-      key: new FormControl(),
-      title: new FormControl(),
-      description: new FormControl()
-    })
   }
 
   ngOnInit(): void {
@@ -41,7 +34,7 @@ export class AboutMeComponent implements OnInit, OnChanges {
     this.loadData()
   }
 
-  loadData() {
+  private loadData() {
     if (this.aboutMeAll.length > 0) {
       let info = this.aboutMeAll.find(x => x.key == this.lang)
       if (info) {
@@ -72,11 +65,5 @@ export class AboutMeComponent implements OnInit, OnChanges {
         }
       })
     }
-  }
-
-  onSubmit() {
-    this.form.value.description = this.form.value.description.split('\n');
-    const response = this.portafolioService.createAboutMe(this.form.value);
-    console.log(response);
   }
 }
