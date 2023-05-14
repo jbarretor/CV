@@ -56,10 +56,4 @@ package-lock.json
 proxy.conf.json
 tsconfig.spec.json
 
-/src/environments
-/src/app/components/administrator
-/src/app/modules/administrator
-/src/app/services/google-form.service.ts
-/src/app/services/auth.service.ts
-
 publish.bat
