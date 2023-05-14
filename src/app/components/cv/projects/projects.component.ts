@@ -21,7 +21,7 @@ export class ProjectsComponent implements OnInit, OnChanges {
       key: '',
       title: '',
       hide: true,
-      detail: []
+      detail: [],
     }
   }
 
