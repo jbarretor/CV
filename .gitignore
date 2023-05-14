@@ -49,7 +49,6 @@ Thumbs.db
 
 .firebaserc
 .editorconfig
-Angular.json
 firebase.json
 firestore.indexes.json
 firestore.rules
