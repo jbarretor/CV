@@ -23,7 +23,7 @@ export class AboutMeComponent implements OnInit, OnChanges {
       title: '',
       description: [],
       image: '',
-      hide: true
+      hide: true,
     };
   }
 
