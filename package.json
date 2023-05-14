@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build --configuration production --base-href=./ && cd dist && echo www.sebastianbarreto.dev > CNAME && cd .. && npx angular-cli-ghpages - dir=dist"
+    "deploy": "ng build --configuration production --base-href=./"
   },
   "private": true,
   "dependencies": {
