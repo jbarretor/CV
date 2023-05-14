@@ -1,0 +1,179 @@
+<div class="accordion-item">
+	<h2 class="accordion-header" id="headingTwo">
+		<button
+			class="accordion-button collapsed"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#collapseSocial"
+			aria-expanded="false"
+			aria-controls="collapseSocial">
+			Social Network
+		</button>
+	</h2>
+	<div
+		id="collapseSocial"
+		class="accordion-collapse collapse"
+		aria-labelledby="headingTwo"
+		data-bs-parent="#accordionExample">
+		<div class="accordion-body">
+			<div class="btn-group me-2" role="group" aria-label="Second group">
+				<button type="button" class="btn btn-secondary" (click)="onClickEn()">
+					en
+				</button>
+				<button type="button" class="btn btn-secondary" (click)="onClickEs()">
+					es
+				</button>
+			</div>
+			<form [formGroup]="form" (ngSubmit)="onSubmit()">
+				<div class="row">
+					<div class="col-md-6">
+						<input
+							type="text"
+							class="form-control"
+							required="true"
+							formControlName="title"
+							placeholder="Title"
+							value="{{ social.title }}" />
+					</div>
+					<div class="col-md-6">
+						<div class="form-check form-switch">
+							<input 
+								class="form-check-input" 
+								type="checkbox" 
+								role="switch" 
+								id="flexSwitchCheckDefault" 
+								[checked]="social.hide"
+								(change)="social.hide = !social.hide" />
+							<label 
+								class="form-check-label" 
+								for="flexSwitchCheckDefault">
+								Ocultar panel
+							</label>
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-success">Save</button>
+				<button type="button" class="btn btn-primary" (click)="openModal()">
+					Add New Social Network
+				</button>
+			</form>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Place</th>
+						<th scope="col">Name</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let info of social.detail">
+						<th scope="row">{{ info.index }}</th>
+						<td>{{ info.place }}</td>
+						<td>{{ info.name }}</td>
+						<td>
+							<button
+								type="button"
+								class="btn btn-primary"
+								(click)="edit(info.index)">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</button>
+							<button
+								type="button"
+								class="btn btn-danger"
+								(click)="delete(info.index)">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div
+	class="modal fade"
+	id="socialModal"
+	tabindex="-1"
+	aria-labelledby="socialModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="socialModalLabel">Social Network</h1>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"
+					(click)="closeModal()"></button>
+			</div>
+			<form [formGroup]="formSocial" (ngSubmit)="onSubmitSocial()">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="index"
+								placeholder="Index"
+								value="{{ socialDetail.index }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="place"
+								placeholder="Place"
+								value="{{ socialDetail.place }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="name"
+								placeholder="Name"
+								value="{{ socialDetail.name }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="icon"
+								placeholder="Icon"
+								value="{{ socialDetail.icon }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="url"
+								placeholder="URL"
+								value="{{ socialDetail.url }}" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-bs-dismiss="modal"
+						(click)="closeModal()">
+						Close
+					</button>
+					<button type="submit" class="btn btn-primary">
+						Save Social Network
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- END Modal -->

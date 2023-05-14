@@ -1,0 +1,223 @@
+<div class="accordion-item">
+	<h2 class="accordion-header" id="headingTwo">
+		<button
+			class="accordion-button collapsed"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#collapseExperience"
+			aria-expanded="false"
+			aria-controls="collapseExperience">
+			Experience
+		</button>
+	</h2>
+	<div
+		id="collapseExperience"
+		class="accordion-collapse collapse"
+		aria-labelledby="headingTwo"
+		data-bs-parent="#accordionExample">
+		<div class="accordion-body">
+			<div class="btn-group me-2" role="group" aria-label="Second group">
+				<button type="button" class="btn btn-secondary" (click)="onClickEn()">
+					en
+				</button>
+				<button type="button" class="btn btn-secondary" (click)="onClickEs()">
+					es
+				</button>
+			</div>
+			<form [formGroup]="form" (ngSubmit)="onSubmit()">
+				<div class="row">
+					<div class="col-md-6">
+						<input
+							type="text"
+							class="form-control"
+							required="true"
+							formControlName="title"
+							placeholder="Title"
+							value="{{ experience.title }}" />
+					</div>
+					<div class="col-md-6">
+						<div class="form-check form-switch">
+							<input 
+								class="form-check-input" 
+								type="checkbox" 
+								role="switch" 
+								id="flexSwitchCheckDefault" 
+								[checked]="experience.hide"
+								(change)="experience.hide = !experience.hide" />
+							<label 
+								class="form-check-label" 
+								for="flexSwitchCheckDefault">
+								Ocultar panel
+							</label>
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-success">Save</button>
+				<button type="button" class="btn btn-primary" (click)="openModal()">
+					Add New Experience
+				</button>
+			</form>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Company</th>
+						<th scope="col">Position</th>
+						<th scope="col">Period</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let trabajo of experience.detail">
+						<th scope="row">{{ trabajo.index }}</th>
+						<td>{{ trabajo.company }}</td>
+						<td>{{ trabajo.position }}</td>
+						<td>{{ trabajo.period }}</td>
+						<td>
+							<button
+								type="button"
+								class="btn btn-primary"
+								(click)="edit(trabajo.index)">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</button>
+							<button
+								type="button"
+								class="btn btn-danger"
+								(click)="delete(trabajo.index)">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div
+	class="modal fade"
+	id="experienceModal"
+	tabindex="-1"
+	aria-labelledby="experienceModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="experienceModalLabel">Experience</h1>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"
+					(click)="closeModal()"></button>
+			</div>
+			<form [formGroup]="formExperience" (ngSubmit)="onSubmitExp()">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="index"
+								placeholder="Index"
+								value="{{ experienceDetail.index }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="company"
+								placeholder="Company"
+								value="{{ experienceDetail.company }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="url"
+								placeholder="URL"
+								value="{{ experienceDetail.url }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="position"
+								placeholder="Position"
+								value="{{ experienceDetail.position }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="imagePath"
+								placeholder="ImagePath"
+								value="{{ experienceDetail.imagePath }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								class="form-control"
+								type="file"
+								(change)="uploadImage($event)" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="period"
+								placeholder="Period"
+								value="{{ experienceDetail.period }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="startDate"
+								placeholder="StartDate"
+								value="{{ experienceDetail.startDate }}" />
+						</div>
+						<div class="col-md-6">
+							<input
+								type="text"
+								class="form-control"
+								required="true"
+								formControlName="endDate"
+								placeholder="EndDate"
+								value="{{ experienceDetail.endDate }}" />
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<textarea
+									class="form-control"
+									rows="5"
+									required="true"
+									formControlName="description"
+									placeholder="Description"
+									value="{{ experienceDetail.descString }}"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-bs-dismiss="modal"
+						(click)="closeModal()">
+						Close
+					</button>
+					<button type="submit" class="btn btn-primary">Save Experience</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- END Modal -->

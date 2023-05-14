@@ -1,0 +1,79 @@
+<div class="accordion-item">
+	<h2 class="accordion-header" id="headingTwo">
+		<button
+			class="accordion-button collapsed"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#collapseAboutMe"
+			aria-expanded="false"
+			aria-controls="collapseAboutMe">
+			About Me
+		</button>
+	</h2>
+	<div
+		id="collapseAboutMe"
+		class="accordion-collapse collapse"
+		aria-labelledby="headingTwo"
+		data-bs-parent="#accordionExample">
+		<div class="accordion-body">
+			<div class="btn-group me-2" role="group" aria-label="Second group">
+				<button type="button" class="btn btn-secondary" (click)="onClickEn()">
+					en
+				</button>
+				<button type="button" class="btn btn-secondary" (click)="onClickEs()">
+					es
+				</button>
+			</div>
+			<form [formGroup]="form" (ngSubmit)="onSubmit()" id="contactForm">
+				<div class="row">
+					<div class="col-md-6">
+						<input
+							type="text"
+							class="form-control"
+							required="true"
+							formControlName="title"
+							placeholder="Title"
+							value="{{ aboutMe.title }}" />
+					</div>
+					<div class="col-md-6">
+						<div class="form-check form-switch">
+							<input 
+								class="form-check-input" 
+								type="checkbox" 
+								role="switch" 
+								id="flexSwitchCheckDefault" 
+								[checked]="aboutMe.hide"
+								(change)="aboutMe.hide = !aboutMe.hide" />
+							<label 
+								class="form-check-label" 
+								for="flexSwitchCheckDefault">
+								Ocultar panel
+							</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<input
+							type="text"
+							class="form-control"
+							required="true"
+							formControlName="image"
+							placeholder="Image"
+							value="{{ aboutMe.image }}" />
+					</div>
+					<div class="col-md-6">
+						<input type="file" (change)="uploadImage($event)" />
+					</div>
+					<div class="col-md-12">
+						<textarea
+							class="form-control"
+							rows="5"
+							required="true"
+							formControlName="description"
+							value="{{ description }}"></textarea>
+						<button type="submit" class="btn btn-success">Save</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
