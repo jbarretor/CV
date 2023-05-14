@@ -16,6 +16,7 @@ export class SocialComponent implements OnInit {
       id: '',
       key: '',
       title: '',
+      hide: true,
       detail: []
     }
   }

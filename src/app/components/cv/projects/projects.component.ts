@@ -20,6 +20,7 @@ export class ProjectsComponent implements OnInit, OnChanges {
       id: '',
       key: '',
       title: '',
+      hide: true,
       detail: []
     }
   }
@@ -42,6 +43,7 @@ export class ProjectsComponent implements OnInit, OnChanges {
           id: '',
           key: '',
           title: '',
+          hide: true,
           detail: []
         }
       }
@@ -56,6 +58,7 @@ export class ProjectsComponent implements OnInit, OnChanges {
             id: '',
             key: '',
             title: '',
+            hide: true,
             detail: []
           }
         }

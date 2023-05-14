@@ -25,6 +25,7 @@ export class ExperienceComponent implements OnInit, OnChanges {
       id: '',
       key: '',
       title: '',
+      hide: true,
       detail: []
     }
     this.experienceDetail = {
@@ -62,6 +63,7 @@ export class ExperienceComponent implements OnInit, OnChanges {
           id: '',
           key: '',
           title: '',
+          hide: true,
           detail: []
         }
       }
@@ -76,6 +78,7 @@ export class ExperienceComponent implements OnInit, OnChanges {
             id: '',
             key: '',
             title: '',
+            hide: true,
             detail: []
           }
         }

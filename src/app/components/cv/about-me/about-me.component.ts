@@ -22,7 +22,8 @@ export class AboutMeComponent implements OnInit, OnChanges {
       key: '',
       title: '',
       description: [],
-      image: ''
+      image: '',
+      hide: true
     };
   }
 
@@ -45,7 +46,8 @@ export class AboutMeComponent implements OnInit, OnChanges {
           key: '',
           title: '',
           description: [],
-          image: ''
+          image: '',
+          hide: true
         }
       }
     } else {
@@ -60,7 +62,8 @@ export class AboutMeComponent implements OnInit, OnChanges {
             key: '',
             title: '',
             description: [],
-            image: ''
+            image: '',
+            hide: true
           }
         }
       })

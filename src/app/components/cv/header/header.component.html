@@ -2,7 +2,7 @@
     <div class="text-center">
         <h1>{{ header.name }}</h1>
         <p>{{ header.title }}</p>
-        <div class="container">
+        <div class="container" [hidden]="socialNetwork.hide">
             <a class='fa-icon fa-icon-2x' href='{{ network.url }}' target='_blank' *ngFor="let network of socialNetwork.detail">
                 <i class='{{ network.icon }}'></i>
             </a>

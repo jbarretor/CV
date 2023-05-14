@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [hidden]="experience.hide">
     <div class="card-body">
         <h2 class="card-title">{{ experience.title }}</h2>
         <div id="carouselExampleIndicators" class="carousel slide">
@@ -24,22 +24,22 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="h5 card-title">{{ detail.position }} -
+                                            <h3 class="h3 card-title">{{ detail.position }} -
                                                 <u>
                                                     <a href="{{ detail.url }}" target="_blank" title="">
                                                         {{detail.company }}
                                                     </a>
                                                 </u>
-                                            </h5>
+                                            </h3>
                                             <small class="date">{{ detail.period }}</small>
                                             <p></p>
-                                            <li class="text-justify" *ngFor="let desc of detail.description">{{ desc }}</li>
+                                            <!-- <li class="text-justify" *ngFor="let desc of detail.description">{{ desc }}</li> -->
+                                            <u>
+                                                <b>
+                                                    <a class="card-more" (click)="openModal(detail.index)">{{ lang =='en' ? 'Details' : 'Detalles' }}</a>
+                                                </b>
+                                            </u>
                                         </div>
-                                        <u>
-                                            <b>
-                                                <a class="card-more" (click)="openModal(detail.index)">Read more</a>
-                                            </b>
-                                        </u>
                                     </div>
                                 </div>
                             </div>

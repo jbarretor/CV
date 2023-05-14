@@ -19,6 +19,7 @@ export class CvComponent implements OnInit {
       id: '',
       key: '',
       title: '',
+      hide: true,
       detail: []
     }
   }
@@ -42,6 +43,7 @@ export class CvComponent implements OnInit {
           id: '',
           key: '',
           title: '',
+          hide: true,
           detail: []
         }
       }
@@ -56,6 +58,7 @@ export class CvComponent implements OnInit {
             id: '',
             key: '',
             title: '',
+            hide: true,
             detail: []
           }
         }

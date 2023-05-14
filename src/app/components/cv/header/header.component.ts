@@ -24,13 +24,15 @@ export class HeaderComponent implements OnInit, OnChanges {
       id: '',
       key: '',
       name: '',
-      title: ''
+      title: '',
+      hide: true
     }
 
     this.socialNetwork = {
       id: '',
       key: '',
       title: '',
+      hide: true,
       detail: []
     }
   }
@@ -53,7 +55,8 @@ export class HeaderComponent implements OnInit, OnChanges {
           id: '',
           key: '',
           name: '',
-          title: ''
+          title: '',
+          hide: true
         }
       }
     } else {
@@ -67,7 +70,8 @@ export class HeaderComponent implements OnInit, OnChanges {
             id: '',
             key: '',
             name: '',
-            title: ''
+            title: '',
+            hide: true
           }
         }
       })

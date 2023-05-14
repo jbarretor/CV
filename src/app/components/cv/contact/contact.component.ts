@@ -21,6 +21,7 @@ export class ContactComponent implements OnInit, OnChanges {
       id: '',
       key: '',
       title: '',
+      hide: true,
       fullnamePlaceHolder: '',
       emailPlaceHolder: '',
       phonePlaceHolder: '',
