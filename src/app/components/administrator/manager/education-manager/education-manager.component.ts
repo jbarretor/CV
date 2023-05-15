@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { Education } from 'src/app/interfaces/education'
-import { EducationDetail } from 'src/app/interfaces/education-detail'
-import { PortafolioService } from 'src/app/services/portafolio.service'
-import { StorageService } from 'src/app/services/storage.service'
+import { Education } from '@interface/education'
+import { EducationDetail } from '@interface/education-detail'
+import { PortafolioService } from '@services/portafolio'
+import { StorageService } from '@services/storage'
 import { getDownloadURL } from '@firebase/storage'
 
 declare var window: any
@@ -21,6 +21,9 @@ export class EducationManagerComponent implements OnInit {
 	protected educationDetail: EducationDetail
 	protected form: FormGroup
 	protected formEducation: FormGroup
+
+	@ViewChild('fileInputEdu')
+	private fileUploader: ElementRef
 
 	constructor(
 		private portafolioService: PortafolioService,
@@ -69,17 +72,21 @@ export class EducationManagerComponent implements OnInit {
 
 		this.portafolioService.readEducation().subscribe((education) => {
 			let info = education ? education.find((x) => x.key == lang) : null
-			if (info) {
-				this.resetFields()
-				this.education = info
-				this.education.hide = this.education.hide.toString() == "" ? false : this.education.hide
-				this.form = new FormGroup({
-					title: new FormControl(this.education.title),
-				})
-			} else {
-				this.resetFields()
-			}
+			this.settingInformation(info)
 		})
+	}
+
+	private settingInformation(info: Education){
+		if (info) {
+			this.resetFields()
+			this.education = info
+			this.education.hide = this.education.hide.toString() == "" ? false : this.education.hide
+			this.form = new FormGroup({
+				title: new FormControl(this.education.title),
+			})
+		} else {
+			this.resetFields()
+		}
 	}
 
 	private resetFields() {
@@ -154,6 +161,8 @@ export class EducationManagerComponent implements OnInit {
 
 		this.formEducation.get('imagePath')?.disable()
 
+		this.fileUploader.nativeElement.value = null;
+
 		this.formModal.show()
 	}
 
@@ -214,6 +223,8 @@ export class EducationManagerComponent implements OnInit {
 
 			this.portafolioService.updateEducation(this.education)
 		}
+
+		this.fileUploader.nativeElement.value = null;
 
 		this.closeModal()
 	}

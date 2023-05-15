@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Projects } from 'src/app/interfaces/projects';
-import { PortafolioService } from 'src/app/services/portafolio.service';
+import { Projects } from '@interface/projects';
+import { PortafolioService } from '@services/portafolio';
+import { Util } from '@util';
 
 @Component({
   selector: 'app-projects',
@@ -34,35 +35,29 @@ export class ProjectsComponent implements OnInit, OnChanges {
   }
 
   private loadData(){
-    if (this.projectsAll.length > 0) {
+    if (!Util.arrayIsNullOrEmpty(this.projectsAll)) {
       let info = this.projectsAll.find(x => x.key == this.lang)
-      if (info) {
-        this.projects = info
-      } else {
-        this.projects = {
-          id: '',
-          key: '',
-          title: '',
-          hide: true,
-          detail: []
-        }
-      }
+      this.settingInformation(info)
     } else {
       this.portafolioService.readProjects().subscribe(projects => {
         this.projectsAll = projects
         let info = projects.find(x => x.key == this.lang)
-        if (info) {
-          this.projects = info
-        } else {
-          this.projects = {
-            id: '',
-            key: '',
-            title: '',
-            hide: true,
-            detail: []
-          }
-        }
+        this.settingInformation(info)
       })
+    }
+  }
+
+  private settingInformation(info: Projects){
+    if (info) {
+      this.projects = info
+    } else {
+      this.projects = {
+        id: '',
+        key: '',
+        title: '',
+        hide: true,
+        detail: []
+      }
     }
   }
 }

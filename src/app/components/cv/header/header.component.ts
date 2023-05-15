@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Header } from 'src/app/interfaces/header';
-import { SocialNetwork } from 'src/app/interfaces/social-network';
-import { PortafolioService } from 'src/app/services/portafolio.service';
+import { Header } from '@interface/header';
+import { SocialNetwork } from '@interface/social-network';
+import { PortafolioService } from '@services/portafolio';
 
 @Component({
   selector: 'app-header',

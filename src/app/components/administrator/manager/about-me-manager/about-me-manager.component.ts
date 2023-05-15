@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { getDownloadURL } from '@angular/fire/storage'
 import { FormControl, FormGroup } from '@angular/forms'
-import { map } from 'rxjs'
-import { AboutMe } from 'src/app/interfaces/about-me'
-import { PortafolioService } from 'src/app/services/portafolio.service'
-import { StorageService } from 'src/app/services/storage.service'
+import { AboutMe } from '@interface/about-me'
+import { PortafolioService } from '@services/portafolio'
+import { StorageService } from '@services/storage'
 
 @Component({
 	selector: 'app-about-me-manager',
@@ -24,23 +23,9 @@ export class AboutMeManagerComponent implements OnInit {
 		private storageService: StorageService
 	) {
 		this.aboutMeAll = []
-		this.aboutMe = {
-			id: '',
-			key: '',
-			title: '',
-			hide: false,
-			description: [],
-			image: '',
-		}
 		this.imgPath = ''
-		this.description = ''
 		this.lang = 'en'
-
-		this.form = new FormGroup({
-			title: new FormControl(''),
-			image: new FormControl(''),
-			description: new FormControl(''),
-		})
+		this.resetFields()
 	}
 
 	ngOnInit(): void {
@@ -52,40 +37,30 @@ export class AboutMeManagerComponent implements OnInit {
 
 		if (this.aboutMeAll.length > 0) {
 			let info = this.aboutMeAll.find((x) => x.key == lang)
-			if (info) {
-				this.resetFields()
-				this.aboutMe = info
-				this.aboutMe.hide = this.aboutMe.hide.toString() == "" ? false : this.aboutMe.hide
-				this.aboutMe.description.forEach((desc) => {
-					this.description += `${desc}\n`
-				})
-				this.imgPath = this.aboutMe.image
-				this.description = this.description.trim()
-				this.form = new FormGroup({
-					title: new FormControl(this.aboutMe.title),
-					image: new FormControl(this.aboutMe.image),
-					description: new FormControl(this.description),
-				})
-			}
+			this.settingInformation(info)
 		} else {
 			this.portafolioService.readAboutMe().subscribe((aboutMe) => {
 				this.aboutMeAll = aboutMe
 				let info = aboutMe ? aboutMe.find((x) => x.key == lang) : null
-				if (info) {
-					this.resetFields()
-					this.aboutMe = info
-					this.aboutMe.hide = this.aboutMe.hide.toString() == "" ? false : this.aboutMe.hide
-					this.aboutMe.description.forEach((desc) => {
-						this.description += `${desc}\n`
-					})
-					this.description = this.description.trim()
-					this.imgPath = this.aboutMe.image
-					this.form = new FormGroup({
-						title: new FormControl(this.aboutMe.title),
-						image: new FormControl(this.aboutMe.image),
-						description: new FormControl(this.description),
-					})
-				}
+				this.settingInformation(info)
+			})
+		}
+	}
+
+	private settingInformation(info: AboutMe){
+		if (info) {
+			this.resetFields()
+			this.aboutMe = info
+			this.aboutMe.hide = this.aboutMe.hide.toString() == "" ? false : this.aboutMe.hide
+			this.aboutMe.description.forEach((desc) => {
+				this.description += `${desc}\n`
+			})
+			this.description = this.description.trim()
+			this.imgPath = this.aboutMe.image
+			this.form = new FormGroup({
+				title: new FormControl(this.aboutMe.title),
+				image: new FormControl(this.aboutMe.image),
+				description: new FormControl(this.description),
 			})
 		}
 	}

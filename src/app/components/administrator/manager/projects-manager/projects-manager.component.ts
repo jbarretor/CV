@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { getDownloadURL } from '@angular/fire/storage'
 import { FormControl, FormGroup } from '@angular/forms'
-import { Projects } from 'src/app/interfaces/projects'
-import { ProjectsDetail } from 'src/app/interfaces/projects-detail'
-import { PortafolioService } from 'src/app/services/portafolio.service'
-import { StorageService } from 'src/app/services/storage.service'
+import { Projects } from '@interface/projects'
+import { ProjectsDetail } from '@interface/projects-detail'
+import { PortafolioService } from '@services/portafolio'
+import { StorageService } from '@services/storage'
 
 declare var window: any
 
@@ -22,6 +22,12 @@ export class ProjectsManagerComponent implements OnInit {
 	protected projectsDetail: ProjectsDetail
 	protected form: FormGroup
 	protected formProjects: FormGroup
+
+	@ViewChild('fileInputPrj')
+	private filePrjUploader: ElementRef
+
+	@ViewChild('fileInputTch')
+	private fileTchUploader: ElementRef
 
 	constructor(
 		private portafolioService: PortafolioService,
@@ -69,20 +75,24 @@ export class ProjectsManagerComponent implements OnInit {
 
 		this.portafolioService.readProjects().subscribe((projects) => {
 			let info = projects ? projects.find((x) => x.key == lang) : null
-			if (info) {
-				this.resetFields()
-				info.detail = info.detail.sort((one, two) =>
-					one.index > two.index ? -1 : 1
-				)
-				this.projects = info
-				this.projects.hide = this.projects.hide.toString() == "" ? false : this.projects.hide
-				this.form = new FormGroup({
-					title: new FormControl(this.projects.title),
-				})
-			} else {
-				this.resetFields()
-			}
+			this.settingInformation(info)
 		})
+	}
+
+	private settingInformation(info: Projects){
+		if (info) {
+			this.resetFields()
+			info.detail = info.detail.sort((one, two) =>
+				one.index > two.index ? -1 : 1
+			)
+			this.projects = info
+			this.projects.hide = this.projects.hide.toString() == "" ? false : this.projects.hide
+			this.form = new FormGroup({
+				title: new FormControl(this.projects.title),
+			})
+		} else {
+			this.resetFields()
+		}
 	}
 
 	private resetFields() {
@@ -184,6 +194,9 @@ export class ProjectsManagerComponent implements OnInit {
 		this.formProjects.get('imagePath')?.disable()
 		this.formProjects.get('technologies')?.disable()
 
+		this.filePrjUploader.nativeElement.value = null;
+		this.fileTchUploader.nativeElement.value = null;
+		
 		this.formModal.show()
 	}
 
@@ -244,6 +257,9 @@ export class ProjectsManagerComponent implements OnInit {
 
 			this.portafolioService.updateProjects(this.projects)
 		}
+
+		this.filePrjUploader.nativeElement.value = null;
+		this.fileTchUploader.nativeElement.value = null;
 
 		this.closeModal()
 	}

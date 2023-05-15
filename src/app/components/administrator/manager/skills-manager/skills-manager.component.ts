@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { Skills } from 'src/app/interfaces/skills'
-import { SkillsDetail } from 'src/app/interfaces/skills-detail'
-import { PortafolioService } from 'src/app/services/portafolio.service'
-import { StorageService } from 'src/app/services/storage.service'
+import { Skills } from '@interface/skills'
+import { SkillsDetail } from '@interface/skills-detail'
+import { PortafolioService } from '@services/portafolio'
+import { StorageService } from '@services/storage'
 import { getDownloadURL } from '@firebase/storage'
 
 declare var window: any
@@ -21,6 +21,9 @@ export class SkillsManagerComponent implements OnInit {
 	protected skillsDetail: SkillsDetail
 	protected form: FormGroup
 	protected formSkill: FormGroup
+
+	@ViewChild('fileInputSkll')
+	private fileUploader: ElementRef
 
 	constructor(
 		private portafolioService: PortafolioService,
@@ -63,17 +66,21 @@ export class SkillsManagerComponent implements OnInit {
 
 		this.portafolioService.readSkills().subscribe((skills) => {
 			let info = skills ? skills.find((x) => x.key == lang) : null
-			if (info) {
-				this.resetFields()
-				this.skills = info
-				this.skills.hide = this.skills.hide.toString() == "" ? false : this.skills.hide
-				this.form = new FormGroup({
-					title: new FormControl(this.skills.title),
-				})
-			} else {
-				this.resetFields()
-			}
+			this.settingInformation(info)
 		})
+	}
+
+	private settingInformation(info: Skills){
+		if (info) {
+			this.resetFields()
+			this.skills = info
+			this.skills.hide = this.skills.hide.toString() == "" ? false : this.skills.hide
+			this.form = new FormGroup({
+				title: new FormControl(this.skills.title),
+			})
+		} else {
+			this.resetFields()
+		}
 	}
 
 	private resetFields() {
@@ -139,6 +146,8 @@ export class SkillsManagerComponent implements OnInit {
 
 		this.formSkill.get('fileSvg')?.disable()
 
+		this.fileUploader.nativeElement.value = null;
+
 		this.formModal.show()
 	}
 
@@ -187,6 +196,8 @@ export class SkillsManagerComponent implements OnInit {
 
 			this.portafolioService.updateSkills(this.skills)
 		}
+
+		this.fileUploader.nativeElement.value = null;
 
 		this.closeModal()
 	}

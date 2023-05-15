@@ -23,7 +23,24 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@interface/*": [
+        "src/app/interfaces/*"
+      ],
+      "@services/portafolio": [
+        "src/app/services/portafolio.service"
+      ],
+      "@services/auth": [
+        "src/app/services/auth.service"
+      ],
+      "@services/storage": [
+        "src/app/services/storage.service"
+      ],
+      "@util": [
+        "src/app/util/util"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

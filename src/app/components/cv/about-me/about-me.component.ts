@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { AboutMe } from 'src/app/interfaces/about-me';
-import { PortafolioService } from 'src/app/services/portafolio.service';
+import { AboutMe } from '@interface/about-me';
+import { PortafolioService } from '@services/portafolio';
+import { Util } from '@util';
 
 @Component({
   selector: 'app-about-me',
@@ -36,37 +37,30 @@ export class AboutMeComponent implements OnInit, OnChanges {
   }
 
   private loadData() {
-    if (this.aboutMeAll.length > 0) {
+    if (!Util.arrayIsNullOrEmpty(this.aboutMeAll)) {
       let info = this.aboutMeAll.find(x => x.key == this.lang)
-      if (info) {
-        this.aboutMe = info
-      } else {
-        this.aboutMe = {
-          id: '',
-          key: '',
-          title: '',
-          description: [],
-          image: '',
-          hide: true
-        }
-      }
+      this.settingInformation(info)
     } else {
       this.portafolioService.readAboutMe().subscribe(aboutMe => {
         this.aboutMeAll = aboutMe
         let info = aboutMe.find(x => x.key == this.lang)
-        if (info) {
-          this.aboutMe = info
-        } else {
-          this.aboutMe = {
-            id: '',
-            key: '',
-            title: '',
-            description: [],
-            image: '',
-            hide: true
-          }
-        }
+        this.settingInformation(info)
       })
+    }
+  }
+
+  private settingInformation(info: AboutMe){
+    if (info) {
+      this.aboutMe = info
+    } else {
+      this.aboutMe = {
+        id: '',
+        key: '',
+        title: '',
+        description: [],
+        image: '',
+        hide: true
+      }
     }
   }
 }

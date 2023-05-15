@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Contact } from 'src/app/interfaces/contact';
-import { ContactForm } from 'src/app/interfaces/contact-form';
-import { PortafolioService } from 'src/app/services/portafolio.service';
+import { Contact } from '@interface/contact';
+import { ContactForm } from '@interface/contact-form';
+import { PortafolioService } from '@services/portafolio';
 
 @Component({
   selector: 'app-contact',

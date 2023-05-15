@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { getDownloadURL } from '@angular/fire/storage'
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms'
 import { Experience } from 'src/app/interfaces/experience'
@@ -22,10 +22,14 @@ export class ExperienceManagerComponent implements OnInit {
 	protected form: FormGroup
 	protected formExperience: FormGroup
 
+	@ViewChild('fileInputExp')
+	private fileUploader: ElementRef
+
 	constructor(
 		private portafolioService: PortafolioService,
 		private storageService: StorageService
 	) {
+		this.resetFields()
 		this.experience = {
 			id: '',
 			key: '',
@@ -33,34 +37,7 @@ export class ExperienceManagerComponent implements OnInit {
 			hide: false,
 			detail: [],
 		}
-		this.experienceDetail = {
-			index: 0,
-			company: '',
-			url: '',
-			imagePath: '',
-			position: '',
-			period: '',
-			startDate: '',
-			endDate: '',
-			description: [],
-			descString: '',
-		}
-		this.form = new FormGroup({
-			title: new FormControl(''),
-		})
-		this.formExperience = new FormGroup({
-			index: new FormControl(''),
-			company: new FormControl(''),
-			url: new FormControl(''),
-			imagePath: new FormControl(''),
-			position: new FormControl(''),
-			period: new FormControl(''),
-			startDate: new FormControl(''),
-			endDate: new FormControl(''),
-			description: new FormControl(''),
-		})
 		this.lang = 'en'
-		this.imgPath = ''
 	}
 
 	ngOnInit(): void {
@@ -76,20 +53,24 @@ export class ExperienceManagerComponent implements OnInit {
 
 		this.portafolioService.readExperience().subscribe((experience) => {
 			let info = experience ? experience.find((x) => x.key == lang) : null
-			if (info) {
-				this.resetFields()
-				info.detail = info.detail.sort((one, two) =>
-					one.index > two.index ? -1 : 1
-				)
-				this.experience = info
-				this.experience.hide = this.experience.hide.toString() == "" ? false : this.experience.hide
-				this.form = new FormGroup({
-					title: new FormControl(this.experience.title),
-				})
-			} else {
-				this.resetFields()
-			}
+			this.settingInformation(info)
 		})
+	}
+
+	private settingInformation(info: Experience){
+		if (info) {
+			this.resetFields()
+			info.detail = info.detail.sort((one, two) =>
+				one.index > two.index ? -1 : 1
+			)
+			this.experience = info
+			this.experience.hide = this.experience.hide.toString() == "" ? false : this.experience.hide
+			this.form = new FormGroup({
+				title: new FormControl(this.experience.title),
+			})
+		} else {
+			this.resetFields()
+		}
 	}
 
 	private resetFields() {
@@ -179,6 +160,8 @@ export class ExperienceManagerComponent implements OnInit {
 
 		this.formExperience.get('imagePath')?.disable()
 
+		this.fileUploader.nativeElement.value = null;
+
 		this.formModal.show()
 	}
 
@@ -248,6 +231,8 @@ export class ExperienceManagerComponent implements OnInit {
 
 			this.portafolioService.updateExperience(this.experience)
 		}
+		
+		this.fileUploader.nativeElement.value = null;
 
 		this.closeModal()
 	}

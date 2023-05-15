@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Language } from 'src/app/interfaces/language';
-import { PortafolioService } from 'src/app/services/portafolio.service';
+import { Language } from '@interface/language';
+import { PortafolioService } from '@services/portafolio';
 
 @Component({
   selector: 'app-language',
@@ -36,33 +36,27 @@ export class LanguageLevelComponent implements OnInit, OnChanges {
   private loadData() {
     if (this.languageAll.length > 0) {
       let info = this.languageAll.find(x => x.key == this.lang)
-      if (info) {
-        this.language = info
-      } else {
-        this.language = {
-          id: '',
-          key: '',
-          title: '',
-          hide: true,
-          detail: []
-        }
-      }
+      this.settingInformation(info)
     } else {
       this.portafolioService.readLanguage().subscribe(language => {
         this.languageAll = language
         let info = language.find(x => x.key == this.lang)
-        if (info) {
-          this.language = info
-        } else {
-          this.language = {
-            id: '',
-            key: '',
-            title: '',
-            hide: true,
-            detail: []
-          }
-        }
+        this.settingInformation(info)
       })
+    }
+  }
+
+  private settingInformation(info: Language){
+    if (info) {
+      this.language = info
+    } else {
+      this.language = {
+        id: '',
+        key: '',
+        title: '',
+        hide: true,
+        detail: []
+      }
     }
   }
 }

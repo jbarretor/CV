@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { SocialNetwork } from 'src/app/interfaces/social-network'
-import { SocialNetworkDetail } from 'src/app/interfaces/social-network-detail'
-import { PortafolioService } from 'src/app/services/portafolio.service'
+import { SocialNetwork } from '@interface/social-network'
+import { SocialNetworkDetail } from '@interface/social-network-detail'
+import { PortafolioService } from '@services/portafolio'
 
 declare var window: any
 
@@ -62,17 +62,21 @@ export class SocialManagerComponent implements OnInit {
 
 		this.portafolioService.readSocialNetwork().subscribe((social) => {
 			let info = social ? social.find((x) => x.key == lang) : null
-			if (info) {
-				this.resetFields()
-				this.social = info
-				this.social.hide = this.social.hide.toString() == "" ? false : this.social.hide
-				this.form = new FormGroup({
-					title: new FormControl(this.social.title),
-				})
-			} else {
-				this.resetFields()
-			}
+			this.settingInformation(info)
 		})
+	}
+
+	private settingInformation(info: SocialNetwork){
+		if (info) {
+			this.resetFields()
+			this.social = info
+			this.social.hide = this.social.hide.toString() == "" ? false : this.social.hide
+			this.form = new FormGroup({
+				title: new FormControl(this.social.title),
+			})
+		} else {
+			this.resetFields()
+		}
 	}
 
 	private resetFields() {

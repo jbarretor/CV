@@ -1,4 +1,3 @@
-import { hide } from "@popperjs/core";
 import { BaseInterface } from "./base-interface"
 
 export interface AboutMe extends BaseInterface {

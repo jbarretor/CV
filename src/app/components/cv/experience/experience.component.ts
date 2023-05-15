@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Experience } from 'src/app/interfaces/experience';
-import { ExperienceDetail } from 'src/app/interfaces/experience-detail';
-import { PortafolioService } from 'src/app/services/portafolio.service';
+import { Experience } from '@interface/experience';
+import { ExperienceDetail } from '@interface/experience-detail';
+import { Util } from '@util';
+import { PortafolioService } from '@services/portafolio';
 
 declare var window: any
 
@@ -54,34 +55,14 @@ export class ExperienceComponent implements OnInit, OnChanges {
   }
 
   private loadData() {
-    if (this.experienceAll.length > 0) {
+    if (!Util.arrayIsNullOrEmpty(this.experienceAll)) {
       let info = this.experienceAll.find(x => x.key == this.lang)
-      if (info) {
-        this.experience = info
-      } else {
-        this.experience = {
-          id: '',
-          key: '',
-          title: '',
-          hide: true,
-          detail: []
-        }
-      }
+      this.settingInformation(info)
     } else {
       this.portafolioService.readExperience().subscribe(experience => {
         this.experienceAll = experience
         let info = experience.find(x => x.key == this.lang)
-        if (info) {
-          this.experience = info
-        } else {
-          this.experience = {
-            id: '',
-            key: '',
-            title: '',
-            hide: true,
-            detail: []
-          }
-        }
+        this.settingInformation(info)
       })
     }
   }
@@ -132,5 +113,19 @@ export class ExperienceComponent implements OnInit, OnChanges {
     }
 
     this.experienceDetail = this.experience.detail[pos]
+  }
+
+  private settingInformation(info: Experience){
+    if (info) {
+      this.experience = info
+    } else {
+      this.experience = {
+        id: '',
+        key: '',
+        title: '',
+        hide: true,
+        detail: []
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Education } from 'src/app/interfaces/education';
-import { PortafolioService } from 'src/app/services/portafolio.service';
+import { Education } from '@interface/education';
+import { PortafolioService } from '@services/portafolio';
+import { Util } from '@util';
 
 @Component({
   selector: 'app-education',
@@ -34,35 +35,29 @@ export class EducationComponent implements OnInit, OnChanges {
   }
 
   private loadData(){
-    if (this.educationAll.length > 0) {
+    if (!Util.arrayIsNullOrEmpty(this.educationAll)) {
       let info = this.educationAll.find(x => x.key == this.lang)
-      if (info) {
-        this.education = info
-      } else {
-        this.education = {
-          id: '',
-          key: '',
-          title: '',
-          hide: true,
-          detail: []
-        }
-      }
+      this.settingInformation(info)
     } else {
       this.portafolioService.readEducation().subscribe(education => {
         this.educationAll = education
         let info = education.find(x => x.key == this.lang)
-        if (info) {
-          this.education = info
-        } else {
-          this.education = {
-            id: '',
-            key: '',
-            title: '',
-            hide: true,
-            detail: []
-          }
-        }
+        this.settingInformation(info)
       })
+    }
+  }
+
+  private settingInformation(info: Education){
+    if (info) {
+      this.education = info
+    } else {
+      this.education = {
+        id: '',
+        key: '',
+        title: '',
+        hide: true,
+        detail: []
+      }
     }
   }
 }

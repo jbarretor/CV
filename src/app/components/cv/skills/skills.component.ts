@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Skills } from 'src/app/interfaces/skills';
-import { PortafolioService } from 'src/app/services/portafolio.service';
+import { Skills } from '@interface/skills';
+import { PortafolioService } from '@services/portafolio';
+import { Util } from '@util';
 
 @Component({
   selector: 'app-skills',
@@ -34,35 +35,29 @@ export class SkillsComponent implements OnInit, OnChanges {
   }
 
   private loadData(){
-    if (this.skillsAll.length > 0) {
+    if (!Util.arrayIsNullOrEmpty(this.skillsAll)) {
       let info = this.skillsAll.find(x => x.key == this.lang)
-      if (info) {
-        this.skills = info
-      } else {
-        this.skills = {
-          id: '',
-          key: '',
-          title: '',
-          hide: true,
-          detail: []
-        }
-      }
+      this.settingInformation(info)
     } else {
       this.portafolioService.readSkills().subscribe(skills => {
         this.skillsAll = skills
         let info = skills.find(x => x.key == this.lang)
-        if (info) {
-          this.skills = info
-        } else {
-          this.skills = {
-            id: '',
-            key: '',
-            title: '',
-            hide: true,
-            detail: []
-          }
-        }
+        this.settingInformation(info)
       })
+    }
+  }
+
+  private settingInformation(info: Skills){
+    if (info) {
+      this.skills = info
+    } else {
+      this.skills = {
+        id: '',
+        key: '',
+        title: '',
+        hide: true,
+        detail: []
+      }
     }
   }
 }

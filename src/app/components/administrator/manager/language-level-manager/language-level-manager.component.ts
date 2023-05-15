@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { Language } from 'src/app/interfaces/language'
-import { LanguageDetail } from 'src/app/interfaces/language-detail'
-import { PortafolioService } from 'src/app/services/portafolio.service'
+import { Language } from '@interface/language'
+import { LanguageDetail } from '@interface/language-detail'
+import { PortafolioService } from '@services/portafolio'
 
 declare var window: any
 
@@ -60,17 +60,21 @@ export class LanguageManagerComponent implements OnInit {
 
 		this.portafolioService.readLanguage().subscribe((language) => {
 			let info = language ? language.find((x) => x.key == lang) : null
-			if (info) {
-				this.resetFields()
-				this.language = info
-				this.language.hide = this.language.hide.toString() == "" ? false : this.language.hide
-				this.form = new FormGroup({
-					title: new FormControl(this.language.title),
-				})
-			} else {
-				this.resetFields()
-			}
+			this.settingInformation(info)
 		})
+	}
+
+	private settingInformation(info: Language){
+		if (info) {
+			this.resetFields()
+			this.language = info
+			this.language.hide = this.language.hide.toString() == "" ? false : this.language.hide
+			this.form = new FormGroup({
+				title: new FormControl(this.language.title),
+			})
+		} else {
+			this.resetFields()
+		}
 	}
 
 	private resetFields() {
